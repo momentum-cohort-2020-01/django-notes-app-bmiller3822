@@ -13,3 +13,9 @@ def notes_detail(request, pk):
 
 
   # return HttpResponse("Hello, world. You're at the core index.")
+
+  #Can also be written as:
+  #def notes_list(request):
+  #notes = Note.objects.all()
+  #context = {'notes': notes}
+  #return render(request, 'core/notes_list.html', context)

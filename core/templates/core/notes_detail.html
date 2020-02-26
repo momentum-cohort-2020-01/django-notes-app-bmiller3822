@@ -2,6 +2,11 @@
 
 {% block content %}
 <dl><dt>{{note.title}}</dt><dd>{{note.body}}</dd></dl>
+
+<footer>
+    <p>Created at: {{note.created_at}}</p>
+    <p>Updated at: {{note.updated_at}}</p>
+</footer>
 {% endblock %}
 
 <!-- <!DOCTYPE html>
