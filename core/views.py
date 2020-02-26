@@ -1,15 +1,54 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+import datetime
+
+# from django.contrib.auth.decorators import permission_required
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 
 from .models import Note
+from .forms import NewNoteForm
 
+# @permission_required('catalog.can_mark_returned')     Maybe we'll use this later?
 def notes_list(request):
-    notes = Note.objects.all() #We need to do something a lot, i.e. get all objects, so here's a method
+    notes = Note.objects.all() 
     return render(request, 'core/notes_list.html', {'notes': notes})
 
 def notes_detail(request, pk):
-    note = Note.objects.get(pk=pk) #primary key
+    note = Note.objects.get(pk=pk) 
     return render (request, 'core/notes_detail.html', {'note': note})
+
+def new_note(request):
+    # note_instance = get_object_or_404(pk=pk) #Pretty sure this is wrong.   NoteInstance (argument)
+    if request.method == 'POST':
+        form = NewNoteForm(request.POST)
+        note = form.save()
+        return redirect('notes-detail', pk=note.pk)
+    else:
+        form = NewNoteForm()
+    return render (request, 'core/new_note.html', {"form": form})
+
+
+
+#First failed attempt (Might come back to this)
+    # if request.method == "POST":
+    #     form = NewNoteForm(request.POST)
+    #     if form.is_valid():
+    #         note_instance = form.cleaned_data['note_text']
+    #         note_instance.save()
+    #         return HttpResponseRedirect(reverse('notes_list') )
+    # else: 
+    #     proposed_note = "Please enter a note."
+    #     form = NewNoteForm(initial={'note_text': "Enter note here."})
+    
+    # context = {
+    #     'form': form,
+    #     'note_instance': note_instance,
+    # }
+
+    # return render (request, 'core/new_note.html', context)
+
+
+# Come back to commit = false ***** Intermediate step to do stuff with the data.
 
 
   # return HttpResponse("Hello, world. You're at the core index.")

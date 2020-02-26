@@ -19,13 +19,16 @@ from django.urls import path
 from core import views
 
 urlpatterns = [
-    path('', views.notes_list, name='notes-list'),
-    path('notes/<int:pk>', views.notes_detail, name="notes-detail"),
+    path('', views.notes_list, name='notes-list'), #Has to align with HTML file
+    path('notes/create/', views.new_note, name='new-note'), #Has to align with HTML file
+    path('notes/<int:pk>', views.notes_detail, name="notes-detail"), #Has to align with HTML file
     path('admin/', admin.site.urls)
 ]
 
-# urlpatterns = [
-#     
+
+#First failed attempt.
+# urlpatterns += [   
+#     path('notes/create/', views.new_note, name='create-note'),  #No way this is right.  I'm going to have to redirect to a new endpoint.  Maybe another .html page?
 # ]
 
 
