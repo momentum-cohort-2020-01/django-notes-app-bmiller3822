@@ -21,9 +21,13 @@ from core import views
 urlpatterns = [
     path('', views.notes_list, name='notes-list'), #Has to align with HTML file
     path('notes/create/', views.new_note, name='new-note'), #Has to align with HTML file
-    path('notes/<int:pk>', views.notes_detail, name="notes-detail"), #Has to align with HTML file
+    path('notes/<int:pk>/', views.notes_detail, name="notes-detail"), #Has to align with HTML file
+    path('notes/<int:pk>/edit/', views.note_edit, name='note-edit'),
+    path('notes/<int:pk>/delete/', views.note_delete, name='note-delete'), #***The only purpose of this URL is to call the delete functinon 
     path('admin/', admin.site.urls)
 ]
+
+
 
 
 #First failed attempt.

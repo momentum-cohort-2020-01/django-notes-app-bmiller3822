@@ -21,12 +21,42 @@ def new_note(request):
     # note_instance = get_object_or_404(pk=pk) #Pretty sure this is wrong.   NoteInstance (argument)
     if request.method == 'POST':
         form = NewNoteForm(request.POST)
-        note = form.save()
-        return redirect('notes-detail', pk=note.pk)
+        if form.is_valid():   
+            note = form.save()
+            return redirect('notes-detail', pk=note.pk)
     else:
         form = NewNoteForm()
     return render (request, 'core/new_note.html', {"form": form})
 
+def note_edit(request, pk):
+    # note = Note.objects.get(pk=pk)
+    note = get_object_or_404(Note, pk=pk)
+    if request.method == "POST":
+        form = NewNoteForm(request.POST, instance=note)
+        if form.is_valid():
+            note = form.save
+            form.save()
+            return redirect('notes-list')
+    else:
+        form = NewNoteForm(instance=note)
+    return render (request, 'core/note_edit.html', {'form': form})
+
+def note_delete(request, pk):
+    note = get_object_or_404(Note, pk=pk)
+    note.delete()
+    return redirect('notes-list')
+
+# def delete_edit(request, pk):
+#     note = Note.objects.get(pk=pk)
+#     if request.method == "DELETE":
+#         form = NewNoteForm(request.POST, instance=note)
+#         if form.is_valid():
+#             note = form.save
+#             form.save()
+#             return redirect('notes-list')
+#     else:
+#         form = NewNoteForm(instance=note)
+#     return render (request, 'core/note_edit.html', {'form': form})
 
 
 #First failed attempt (Might come back to this)

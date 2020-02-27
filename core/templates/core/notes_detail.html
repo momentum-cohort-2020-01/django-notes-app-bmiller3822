@@ -3,9 +3,15 @@
 {% block content %}
 <dl><dt>{{note.title}}</dt><dd>{{note.body}}</dd></dl>
 
+<a href="{% url 'note-edit' pk=note.pk %}" class="button">Edit Note</a>
+<a href="{% url 'note-delete' pk=note.pk %}" class="button-danger">Delete Note</a>
+
+
+
 <footer>
     <p>Created at: {{note.created_at}}</p>
     <p>Updated at: {{note.updated_at}}</p>
+    <a href="{% url 'notes-list' %}" class ="button">Home</a>
 </footer>
 {% endblock %}
 
